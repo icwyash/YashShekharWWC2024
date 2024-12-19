@@ -1,0 +1,55 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string name, section, areaOfInterest, hometown, dob, aim;
+    int uid, age;
+    float cgpa;
+
+    cout << "Enter your name: ";
+    getline(cin, name);
+
+    cout << "Enter your UID: ";
+    cin >> uid;
+
+    cin.ignore();  
+
+    cout << "Enter your section: ";
+    getline(cin, section);
+
+    cout << "Enter your area of interest: ";
+    getline(cin, areaOfInterest);
+
+    cout << "Enter your age: ";
+    cin >> age;
+
+    cin.ignore();
+
+    cout << "Enter your hometown: ";
+    getline(cin, hometown);
+
+    cout << "Enter your CGPA: ";
+    cin >> cgpa;
+
+    cin.ignore();
+
+    cout << "Enter your date of birth (dd/mm/yyyy): ";
+    getline(cin, dob);
+
+    cout << "Enter your aim: ";
+    getline(cin, aim);
+
+    cout << endl << "---------- Your Biodata ----------" << endl;
+    cout << "Name: " << name << endl;
+    cout << "UID: " << uid << endl;
+    cout << "Section: " << section << endl;
+    cout << "Area of Interest: " << areaOfInterest << endl;
+    cout << "Age: " << age << endl;
+    cout << "Hometown: " << hometown << endl;
+    cout << "CGPA: " << cgpa << endl;
+    cout << "Date of Birth: " << dob << endl;
+    cout << "Aim: " << aim << endl;
+
+    return 0;
+}
