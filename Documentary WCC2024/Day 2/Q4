@@ -1,0 +1,92 @@
+#include <iostream>
+#include <string>
+#include <memory>
+
+class Task {
+public:
+    int taskID;
+    int priority;
+    int executionTime;
+    Task* next;
+
+    Task(int id, int prio, int execTime) : taskID(id), priority(prio), executionTime(execTime), next(nullptr) {}
+};
+
+class TaskScheduler {
+private:
+    Task* head;
+
+public:
+    TaskScheduler() : head(nullptr) {}
+
+    // Insert task in priority order
+    void insertTask(int id, int priority, int execTime) {
+        Task* newTask = new Task(id, priority, execTime);
+        if (!head || head->priority < priority) {
+            newTask->next = head;
+            head = newTask;
+        } else {
+            Task* current = head;
+            while (current->next && current->next->priority >= priority) {
+                current = current->next;
+            }
+            newTask->next = current->next;
+            current->next = newTask;
+        }
+        std::cout << "Inserted Task ID: " << id << " with Priority: " << priority << std::endl;
+    }
+
+    // Complete a task
+    void completeTask() {
+        if (!head) {
+            std::cout << "No tasks to complete." << std::endl;
+            return;
+        }
+        Task* completedTask = head;
+        head = head->next;
+        std::cout << "Completed Task ID: " << completedTask->taskID << std::endl;
+        delete completedTask;
+    }
+
+    // Display current tasks
+    void displayTasks() {
+        if (!head) {
+            std::cout << "No tasks in the scheduler." << std::endl;
+            return;
+        }
+        Task* current = head;
+        std::cout << "Current Tasks: " << std::endl;
+        while (current) {
+            std::cout << "Task ID: " << current->taskID << ", Priority: " << current->priority 
+                      << ", Execution Time: " << current->executionTime << std::endl;
+            current = current->next;
+        }
+    }
+
+    // Destructor to free memory
+    ~TaskScheduler() {
+        while (head) {
+            completeTask();
+        }
+    }
+};
+
+int main() {
+    TaskScheduler scheduler;
+
+    // Simulating task insertion
+    scheduler.insertTask(1, 2, 5);
+    scheduler.insertTask(2, 1, 3);
+    scheduler.insertTask(3, 3, 2);
+    scheduler.displayTasks();
+
+    // Completing a task
+    scheduler.completeTask();
+    scheduler.displayTasks();
+
+    // Inserting a new task
+    scheduler.insertTask(4, 4, 1);
+    scheduler.displayTasks();
+
+    return 0;
+}
