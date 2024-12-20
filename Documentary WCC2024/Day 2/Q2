@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+
+using namespace std;
+
+bool isValidSudoku(vector<vector<char>>& board) {
+    unordered_set<char> rows[9], cols[9], boxes[9];
+    
+    for (int r = 0; r < 9; r++) {
+        for (int c = 0; c < 9; c++) {
+            char num = board[r][c];
+            if (num != '.') {
+                int boxIndex = (r / 3) * 3 + (c / 3);
+                
+                if (rows[r].count(num) || cols[c].count(num) || boxes[boxIndex].count(num)) {
+                    return false;
+                }
+                
+                rows[r].insert(num);
+                cols[c].insert(num);
+                boxes[boxIndex].insert(num);
+            }
+        }
+    }
+    
+    return true;
+}
+
+// Example usage
+int main() {
+    vector<vector<char>> sudokuBoard = {
+        {'5', '3', '.', '.', '7', '.', '.', '.', '.'},
+        {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
+        {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
+        {'8', '.', '.', '.', '6', '.', '.', '.', '3'},
+        {'4', '.', '.', '8', '.', '3', '.', '.', '1'},
+        {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+        {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
+        {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
+        {'.', '.', '.', '.', '8', '.', '.', '7', '9'}
+    };
+    
+    bool isValid = isValidSudoku(sudokuBoard);
+    cout << (isValid ? "Valid Sudoku" : "Invalid Sudoku") << endl;
+    
+    return 0;
+}
