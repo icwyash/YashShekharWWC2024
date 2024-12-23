@@ -1,0 +1,12 @@
+def lastRemaining(n: int) -> int:
+    left_to_right = True
+    remaining = list(range(1, n + 1))
+
+    while len(remaining) > 1:
+        if left_to_right:
+            remaining = remaining[1::2]  # Remove first and every other
+        else:
+            remaining = remaining[-1:0:-2]  # Remove last and every other
+        left_to_right = not left_to_right
+
+    return remaining[0]
