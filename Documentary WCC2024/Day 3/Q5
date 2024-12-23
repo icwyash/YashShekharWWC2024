@@ -1,0 +1,9 @@
+def minNonZeroProduct(p: int) -> int:
+    MOD = 10**9 + 7
+    max_num = (1 << p) - 1  # 2^p - 1
+    min_product = (max_num * (max_num - 1) // 2) % MOD
+    return min_product
+
+# Example usage
+p = 3
+print(minNonZeroProduct(p))  # Output: 6
