@@ -1,12 +1,33 @@
-def lastRemaining(n: int) -> int:
-    left_to_right = True
-    remaining = list(range(1, n + 1))
+#include <iostream>
+#include <vector>
 
-    while len(remaining) > 1:
-        if left_to_right:
-            remaining = remaining[1::2]  # Remove first and every other
-        else:
-            remaining = remaining[-1:0:-2]  # Remove last and every other
-        left_to_right = not left_to_right
+int lastRemaining(int n) {
+    bool leftToRight = true; 
+    int start = 1;          
+    int step = 1;           
+    int remaining = n;      
 
-    return remaining[0]
+    while (remaining > 1) {
+        
+        if (leftToRight || remaining % 2 == 1) {
+            start += step;
+        }
+
+        remaining /= 2;
+        step *= 2;
+        leftToRight = !leftToRight; 
+    }
+
+    return start;
+}
+
+int main() {
+    int n;
+    std::cout << "Enter the value of n: ";
+    std::cin >> n;
+
+    int result = lastRemaining(n);
+    std::cout << "The last remaining number is: " << result << std::endl;
+
+    return 0;
+}
