@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+struct Ad {
+    int id;
+    double bidAmount;
+    double engagementRate;
+    double remainingBudget;
+
+    // Calculate priority score
+    double priorityScore() const {
+        return bidAmount * engagementRate / remainingBudget; // Simplified scoring
+    }
+};
+
+bool compareAds(const Ad &a, const Ad &b) {
+    return a.priorityScore() > b.priorityScore();
+}
+
+int main() {
+    std::vector<Ad> ads = {
+        {1, 100.0, 0.8, 500.0},
+        {2, 150.0, 0.6, 300.0},
+        {3, 200.0, 0.9, 400.0}
+    };
+
+    std::sort(ads.begin(), ads.end(), compareAds);
+
+    std::cout << "Scheduled Ads:\n";
+    for (const auto &ad : ads) {
+        std::cout << "Ad ID: " << ad.id << ", Score: " << ad.priorityScore() << "\n";
+    }
+
+    return 0;
+}
