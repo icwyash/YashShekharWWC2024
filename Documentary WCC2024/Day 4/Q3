@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+struct Video {
+    std::string title;
+    int totalViews;
+    double userRating;
+    int releaseYear;
+
+    // Calculate priority score
+    double priorityScore() const {
+        return totalViews * userRating / (2023 - releaseYear + 1); // Simplified scoring
+    }
+};
+
+bool compareVideos(const Video &a, const Video &b) {
+    return a.priorityScore() > b.priorityScore();
+}
+
+int main() {
+    std::vector<Video> videos = {
+        {"Movie A", 10000, 4.5, 2021},
+        {"Movie B", 5000, 4.8, 2022},
+        {"Movie C", 20000, 4.0, 2020}
+    };
+
+    std::sort(videos.begin(), videos.end(), compareVideos);
+
+    std::cout << "Recommended Videos:\n";
+    for (const auto &video : videos) {
+        std::cout << video.title << " - Score: " << video.priorityScore() << "\n";
+    }
+
+    return 0;
+}
